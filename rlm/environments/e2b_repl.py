@@ -271,9 +271,14 @@ class E2BREPL(IsolatedEnv):
         lm_handler_address: tuple[str, int] | None = None,
         context_payload: dict | list | str | None = None,
         setup_code: str | None = None,
+        persistent: bool = False,
         **kwargs: Any,
     ):
-        super().__init__(**kwargs)
+        if persistent:
+            raise NotImplementedError(
+                "Persistent REPLs are currently not supported for environment: E2BREPL"
+            )
+        super().__init__(persistent=persistent, **kwargs)
 
         self.timeout = timeout
         self.lm_handler_address = lm_handler_address
